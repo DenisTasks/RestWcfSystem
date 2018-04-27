@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Web API .NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/appointment")
+</head>
+<body>
+    <h2>Web API .NET</h2>
+
+    <form name="appForm">
+
+        <input type="hidden" name="appId" value="0" />
+        <input type="hidden" name="arrayId" value="0" />
+
+        <div class="form-group">
+            <label>Subject:</label>
+            <input class="form-control" name="subjectText" data-bind="textInput: subjectInput" />
+        </div>
+
+        <div class="panel-body">
+            <button class="btn btn-sm btn-primary" data-bind="click: resetButton">Reset</button>
+            <button type="submit" class="btn btn-sm btn-primary">Save with Knockout</button>
+        </div>
+
+    </form>
+
+    <table class="table table-condensed table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Subject</th>
+                <th>Beginning Date</th>
+                <th>Ending Date</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: apps">
+            <tr>
+                <td data-bind="text: AppointmentId"></td>
+                <td data-bind="text: Subject"></td>
+                <td data-bind="text: moment(BeginningDate).format('LLLL')"></td>
+                <td data-bind="text: moment(EndingDate).format('LLLL')"></td>
+                <td><a href="#" data-bind="click: $root.removeApp">Remove</a></td>
+                <td><a href="#" data-bind="click: $root.editApp">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+<script>
+    function AppViewModel() {
+        var self = this;
+        self.apps = ko.observableArray([]);
+        self.subjectInput = ko.observable(null);
+        var subjectToJson = { subject: self.subjectInput };
+
+        self.resetButton = function () {
+            var form = document.forms["appForm"];
+            form.reset();
+            form.elements["appId"].value = 0;
+            self.subjectInput(null);
+        }
+
+        self.getFromServer = function () {
+            $.get("/api/appointment", self.apps);
+        }
+
+        self.getAppById = function (id) {
+            $.ajax({
+                url: '/api/appointment/' + id,
+                type: 'GET',
+                contentType: "application/json",
+                success: function (app) {
+                    var form = document.forms["appForm"];
+                    form.elements["appId"].value = app.AppointmentId;
+                    form.elements["subjectText"].value = app.Subject;
+                }
+            });
+        }
+
+        self.putApp = function (id, subject) {
+            $.ajax({
+                url: "/api/appointment",
+                type: "PUT",
+                data: JSON.stringify({
+                    AppointmentId: id,
+                    Subject: subject
+                }),
+                datatype: "json",
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (app) {
+                    var form = document.forms["appForm"];
+                    var ind = form.elements["arrayId"].value;
+                    self.apps.splice(
+                        ind,
+                        1,
+                        app
+                    );
+                    self.resetButton();
+                }
+            });
+        }
+
+        self.postToServer = function () {
+            var jsonData = ko.toJSON(subjectToJson);
+            $.ajax({
+                url: "/api/appointment",
+                type: "POST",
+                data: jsonData,
+                datatype: "json",
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (app) {
+                    self.resetButton();
+                    self.apps.push(app);
+                }
+            });
+        }
+
+        self.removeApp = function (app) {
+            $.ajax({
+                url: "/api/appointment/" + app.AppointmentId,
+                contentType: "application/json",
+                method: "DELETE",
+                success: function () {
+                    self.apps.remove(app);
+                }
+            });
+        }
+
+        self.editApp = function (app) {
+            var form = document.forms["appForm"];
+            form.elements["arrayId"].value = self.apps.indexOf(app);
+            self.getAppById(app.AppointmentId);
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            var id = this.elements["appId"].value;
+            var subject = this.elements["subjectText"].value;
+            if (id == 0)
+                self.postToServer();
+            else
+                self.putApp(id, subject);
+        });
+
+        self.getFromServer();
+    }
+
+    ko.applyBindings(new AppViewModel());
+</script>
+
+</body>
+</html>
