@@ -91,16 +91,10 @@ namespace WebApiNET.ServiceReference {
         System.Threading.Tasks.Task DisconnectAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Callback")]
-        void Callback();
+        void Callback(int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Callback")]
-        System.Threading.Tasks.Task CallbackAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/SendData", ReplyAction="http://tempuri.org/IOutlookService/SendDataResponse")]
-        WebApiNET.ServiceReference.TransferData SendData(WebApiNET.ServiceReference.TransferData list);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/SendData", ReplyAction="http://tempuri.org/IOutlookService/SendDataResponse")]
-        System.Threading.Tasks.Task<WebApiNET.ServiceReference.TransferData> SendDataAsync(WebApiNET.ServiceReference.TransferData list);
+        System.Threading.Tasks.Task CallbackAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/GetAppointments", ReplyAction="http://tempuri.org/IOutlookService/GetAppointmentsResponse")]
         BLL.EntitesDTO.AppointmentDTO[] GetAppointments();
@@ -137,18 +131,6 @@ namespace WebApiNET.ServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/AddAppointment", ReplyAction="http://tempuri.org/IOutlookService/AddAppointmentResponse")]
         System.Threading.Tasks.Task<BLL.EntitesDTO.AppointmentDTO> AddAppointmentAsync(BLL.EntitesDTO.AppointmentDTO appointment, int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/SendDataTo", ReplyAction="http://tempuri.org/IOutlookService/SendDataToResponse")]
-        string SendDataTo(WebApiNET.ServiceReference.TransferData list, int recipientId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/SendDataTo", ReplyAction="http://tempuri.org/IOutlookService/SendDataToResponse")]
-        System.Threading.Tasks.Task<string> SendDataToAsync(WebApiNET.ServiceReference.TransferData list, int recipientId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/GetCountAppointments", ReplyAction="http://tempuri.org/IOutlookService/GetCountAppointmentsResponse")]
-        int GetCountAppointments();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/GetCountAppointments", ReplyAction="http://tempuri.org/IOutlookService/GetCountAppointmentsResponse")]
-        System.Threading.Tasks.Task<int> GetCountAppointmentsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -205,20 +187,12 @@ namespace WebApiNET.ServiceReference {
             return base.Channel.DisconnectAsync(id);
         }
         
-        public void Callback() {
-            base.Channel.Callback();
+        public void Callback(int id) {
+            base.Channel.Callback(id);
         }
         
-        public System.Threading.Tasks.Task CallbackAsync() {
-            return base.Channel.CallbackAsync();
-        }
-        
-        public WebApiNET.ServiceReference.TransferData SendData(WebApiNET.ServiceReference.TransferData list) {
-            return base.Channel.SendData(list);
-        }
-        
-        public System.Threading.Tasks.Task<WebApiNET.ServiceReference.TransferData> SendDataAsync(WebApiNET.ServiceReference.TransferData list) {
-            return base.Channel.SendDataAsync(list);
+        public System.Threading.Tasks.Task CallbackAsync(int id) {
+            return base.Channel.CallbackAsync(id);
         }
         
         public BLL.EntitesDTO.AppointmentDTO[] GetAppointments() {
@@ -267,22 +241,6 @@ namespace WebApiNET.ServiceReference {
         
         public System.Threading.Tasks.Task<BLL.EntitesDTO.AppointmentDTO> AddAppointmentAsync(BLL.EntitesDTO.AppointmentDTO appointment, int id) {
             return base.Channel.AddAppointmentAsync(appointment, id);
-        }
-        
-        public string SendDataTo(WebApiNET.ServiceReference.TransferData list, int recipientId) {
-            return base.Channel.SendDataTo(list, recipientId);
-        }
-        
-        public System.Threading.Tasks.Task<string> SendDataToAsync(WebApiNET.ServiceReference.TransferData list, int recipientId) {
-            return base.Channel.SendDataToAsync(list, recipientId);
-        }
-        
-        public int GetCountAppointments() {
-            return base.Channel.GetCountAppointments();
-        }
-        
-        public System.Threading.Tasks.Task<int> GetCountAppointmentsAsync() {
-            return base.Channel.GetCountAppointmentsAsync();
         }
     }
 }

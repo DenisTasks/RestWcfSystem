@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:65481/HostService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" />
-  <xs:import schemaLocation="http://localhost:65481/HostService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" />
+  <xs:import schemaLocation="http://localhost:65481/HostService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" />
+  <xs:import schemaLocation="http://localhost:65481/HostService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" />
   <xs:element name="Connect">
     <xs:complexType>
       <xs:sequence>
@@ -18,20 +18,8 @@
   </xs:element>
   <xs:element name="Callback">
     <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendData">
-    <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" minOccurs="0" name="list" nillable="true" type="q1:TransferData" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendDataResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" minOccurs="0" name="SendDataResult" nillable="true" type="q2:TransferData" />
+        <xs:element minOccurs="0" name="id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -43,7 +31,7 @@
   <xs:element name="GetAppointmentsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="GetAppointmentsResult" nillable="true" type="q3:ArrayOfAppointmentDTO" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="GetAppointmentsResult" nillable="true" type="q1:ArrayOfAppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -59,7 +47,7 @@
   <xs:element name="GetAppointmentsWithSqlResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="GetAppointmentsWithSqlResult" nillable="true" type="q4:ArrayOfAppointmentDTO" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="GetAppointmentsWithSqlResult" nillable="true" type="q2:ArrayOfAppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -73,21 +61,21 @@
   <xs:element name="GetAppointmentByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="GetAppointmentByIdResult" nillable="true" type="q5:AppointmentDTO" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="GetAppointmentByIdResult" nillable="true" type="q3:AppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateAppointment">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="appointment" nillable="true" type="q6:AppointmentDTO" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="appointment" nillable="true" type="q4:AppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateAppointmentResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="UpdateAppointmentResult" nillable="true" type="q7:AppointmentDTO" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="UpdateAppointmentResult" nillable="true" type="q5:AppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -101,14 +89,14 @@
   <xs:element name="RemoveAppointmentByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="RemoveAppointmentByIdResult" nillable="true" type="q8:AppointmentDTO" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="RemoveAppointmentByIdResult" nillable="true" type="q6:AppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddAppointment">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="appointment" nillable="true" type="q9:AppointmentDTO" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="appointment" nillable="true" type="q7:AppointmentDTO" />
         <xs:element minOccurs="0" name="id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -116,34 +104,7 @@
   <xs:element name="AddAppointmentResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="AddAppointmentResult" nillable="true" type="q10:AppointmentDTO" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendDataTo">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" minOccurs="0" name="list" nillable="true" type="q11:TransferData" />
-        <xs:element minOccurs="0" name="recipientId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendDataToResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="SendDataToResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCountAppointments">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCountAppointmentsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="GetCountAppointmentsResult" type="xs:int" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/BLL.EntitesDTO" minOccurs="0" name="AddAppointmentResult" nillable="true" type="q8:AppointmentDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -160,7 +121,7 @@
   <xs:element name="CallbackFull">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" minOccurs="0" name="list" nillable="true" type="q12:TransferData" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/OutlookService.DTOs" minOccurs="0" name="list" nillable="true" type="q9:TransferData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

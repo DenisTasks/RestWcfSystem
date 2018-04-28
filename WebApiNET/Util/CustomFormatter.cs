@@ -7,8 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
-using Model.Entities;
+using BLL.EntitesDTO;
 
 namespace WebApiNET.Util
 {
@@ -20,24 +19,24 @@ namespace WebApiNET.Util
         }
         public override bool CanReadType(Type type)
         {
-            return type == typeof(Appointment) || type == typeof(IEnumerable<Appointment>);
+            return type == typeof(AppointmentDTO) || type == typeof(IQueryable<AppointmentDTO>);
         }
         public override bool CanWriteType(Type type)
         {
-            return type == typeof(Appointment) || type == typeof(IEnumerable<Appointment>);
+            return type == typeof(AppointmentDTO) || type == typeof(IQueryable<AppointmentDTO>);
         }
         public override async Task WriteToStreamAsync(Type type, object value,
             Stream writeStream, HttpContent content, TransportContext transportContext)
         {
             List<string> appsString = new List<string>();
-            IEnumerable<Appointment> apps;
-            if (value is Appointment)
+            IEnumerable<AppointmentDTO> apps;
+            if (value is AppointmentDTO)
             {
-                apps = new[] {(Appointment)value};
+                apps = new[] {(AppointmentDTO)value};
             }
             else
             {
-                apps = (IEnumerable<Appointment>)value;
+                apps = (IQueryable<AppointmentDTO>)value;
             }
             foreach (var b in apps)
             {

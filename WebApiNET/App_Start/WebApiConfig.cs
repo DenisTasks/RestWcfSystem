@@ -5,11 +5,6 @@ using System.Web.Http;
 using System.Web.Http.OData.Extensions;
 using Unity.Lifetime;
 using WebApiNET.Util;
-using BLL.BLLService;
-using BLL.Interfaces;
-using Model.Interfaces;
-using Model.ModelService;
-using Model;
 
 namespace WebApiNET
 {
@@ -17,9 +12,6 @@ namespace WebApiNET
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-            //config.EnableSystemDiagnosticsTracing();
-            // Web API routes
             config.MapHttpAttributeRoutes();
             config.AddODataQueryFilter();
 

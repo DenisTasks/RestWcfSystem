@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebWCFHost.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebWCFHost.App_Start.NinjectWebCommon), "Stop")]
 
@@ -39,7 +41,6 @@ namespace WebWCFHost.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
-                //GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
 
                 return kernel;
             }
@@ -55,8 +56,6 @@ namespace WebWCFHost.App_Start
             kernel.Bind<WPFOutlookContext>().ToSelf().InRequestScope().WithConstructorArgument("connectionString", "WPFOutlookContext");
             kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>)).InRequestScope();
             kernel.Bind<IBLLServiceMain>().To<BLLServiceMain>().InRequestScope();
-            kernel.Bind<ILogService>().To<LogService>().InRequestScope();
-            kernel.Bind<INotifyService>().To<NotifyService>().InRequestScope();
         }
     }
 }

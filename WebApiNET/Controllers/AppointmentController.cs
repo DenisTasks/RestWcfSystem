@@ -16,16 +16,23 @@ namespace WebApiNET.Controllers
         public AppointmentController()
         {
             var callback = new OutlookServiceCallback();
+            callback.NewCallBack += ExecuteCallBack;
             var instanceContext = new InstanceContext(callback);
             _client = new OutlookServiceClient(instanceContext);
             try
             {
-                _client.Connect(1);
+                _client.Connect(DateTime.Now.Minute);
             }
             catch (Exception)
             {
                 // ignored
             }
+        }
+
+        private void ExecuteCallBack(object sender, EventArgs eventArgs)
+        {
+            // how to call this method from html?
+            Get();
         }
 
         [EnableQuery]
@@ -66,6 +73,7 @@ namespace WebApiNET.Controllers
             var appointment = _client.AddAppointment(outputMapped, 1);
             if (appointment != null)
             {
+                _client.Callback(1);
                 return Ok(appointment);
             }
             return Conflict();

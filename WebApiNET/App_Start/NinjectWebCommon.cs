@@ -4,9 +4,6 @@ using System.Web.Http;
 using BLL.BLLService;
 using BLL.Interfaces;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using Model;
-using Model.Interfaces;
-using Model.ModelService;
 using Ninject;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
@@ -56,8 +53,8 @@ namespace WebApiNET
 
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<WPFOutlookContext>().ToSelf().InScope(s => HttpContext.Current).WithConstructorArgument("connectionString", "WPFOutlookContext");
-            kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
+            //kernel.Bind<WPFOutlookContext>().ToSelf().InScope(s => HttpContext.Current).WithConstructorArgument("connectionString", "WPFOutlookContext");
+            //kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
             kernel.Bind<IBLLServiceMain>().To<BLLServiceMain>();
             kernel.Bind<ILogService>().To<LogService>();
             kernel.Bind<INotifyService>().To<NotifyService>();

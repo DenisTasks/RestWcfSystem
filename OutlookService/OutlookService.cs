@@ -4,22 +4,24 @@ using System.Linq;
 using System.ServiceModel;
 using BLL.EntitesDTO;
 using BLL.Interfaces;
+using Ninject;
 using NLog;
 using OutlookService.Interfaces;
 
 namespace OutlookService
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, 
-                     InstanceContextMode = InstanceContextMode.PerCall)]
+                     InstanceContextMode = InstanceContextMode.Single)]
     public class OutlookService : IOutlookService
     {
         private readonly IDictionary<int, IOutlookServiceCallback> _callbackDictionary;
         private readonly ILogger _logger;
-        private readonly IBLLServiceMain _service;
+        private IBLLServiceMain _service;
+        private readonly IKernel _kernel;
 
-        public OutlookService(IBLLServiceMain service)
+        public OutlookService(IKernel kernel)
         {
-            _service = service;
+            _kernel = kernel;
             _callbackDictionary = new Dictionary<int, IOutlookServiceCallback>();
             _logger = LogManager.GetCurrentClassLogger();
             _logger.Info(@"Service started");
@@ -32,6 +34,10 @@ namespace OutlookService
             {
                 _callbackDictionary.Add(id, callback);
                 _logger.Info(@"User with ID {0} and name {1} successfully connected", id, System.Threading.Thread.CurrentPrincipal.Identity.Name);
+                foreach (var item in _callbackDictionary)
+                {
+                    _logger.Info($"In callBackDictionary: {item.Key}");
+                }
             }
         }
 
@@ -44,16 +50,18 @@ namespace OutlookService
             }
         }
 
-        public void Callback()
+        public void Callback(int id)
         {
-            foreach (var item in _callbackDictionary)
+            foreach (var item in _callbackDictionary.Where(s => s.Key != id))
             {
+                _logger.Trace($"Callback for {item.Key}");
                 item.Value.OnCallback();
             }
         }
 
         public List<AppointmentDTO> GetAppointments()
         {
+            _service = _kernel.Get<IBLLServiceMain>();
             var appList = _service.GetAppointmentsByUserId(1).ToList();
             foreach (var item in appList)
             {
@@ -64,6 +72,7 @@ namespace OutlookService
 
         public List<AppointmentDTO> GetAppointmentsWithSql(int id, int itemsToSkip, int pageSize)
         {
+            _service = _kernel.Get<IBLLServiceMain>();
             var appList = _service.GetAppointmentsByUserIdSqlText(id, itemsToSkip, pageSize).ToList();
             foreach (var item in appList)
             {
@@ -74,6 +83,7 @@ namespace OutlookService
 
         public AppointmentDTO UpdateAppointment(AppointmentDTO updateApp)
         {
+            _service = _kernel.Get<IBLLServiceMain>();
             var appointment = _service.UpdateAppointment(updateApp);
             if (appointment != null)
             {
@@ -87,6 +97,7 @@ namespace OutlookService
         {
             try
             {
+                _service = _kernel.Get<IBLLServiceMain>();
                 var appointment = _service.GetAppointmentById(id);
                 if (appointment != null)
                 {
@@ -105,6 +116,7 @@ namespace OutlookService
         {
             try
             {
+                _service = _kernel.Get<IBLLServiceMain>();
                 var appointment = _service.RemoveAppointment(id);
                 if (appointment != null)
                 {
@@ -123,6 +135,7 @@ namespace OutlookService
         {
             try
             {
+                _service = _kernel.Get<IBLLServiceMain>();
                 var appointment = _service.AddAppointmentWeb(addApp, id);
                 if (appointment != null)
                 {
