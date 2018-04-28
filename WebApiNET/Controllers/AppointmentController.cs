@@ -73,7 +73,7 @@ namespace WebApiNET.Controllers
             var appointment = _client.AddAppointment(outputMapped, 1);
             if (appointment != null)
             {
-                _client.Callback(1);
+                _client.Callback();
                 return Ok(appointment);
             }
             return Conflict();

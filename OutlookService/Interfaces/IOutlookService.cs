@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using BLL.EntitesDTO;
+using OutlookService.DTOs;
 
 namespace OutlookService.Interfaces
 {
@@ -16,7 +17,7 @@ namespace OutlookService.Interfaces
         void Disconnect(int id);
 
         [OperationContract(IsOneWay = true)]
-        void Callback(int id);
+        void Callback();
 
         [OperationContract(IsOneWay = false)]
         List<AppointmentDTO> GetAppointments();
@@ -35,6 +36,5 @@ namespace OutlookService.Interfaces
 
         [OperationContract(IsOneWay = false)]
         AppointmentDTO AddAppointment(AppointmentDTO appointment, int id);
-
     }
 }

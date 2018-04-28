@@ -91,10 +91,10 @@ namespace WebApiNET.ServiceReference {
         System.Threading.Tasks.Task DisconnectAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Callback")]
-        void Callback(int id);
+        void Callback();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Callback")]
-        System.Threading.Tasks.Task CallbackAsync(int id);
+        System.Threading.Tasks.Task CallbackAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/GetAppointments", ReplyAction="http://tempuri.org/IOutlookService/GetAppointmentsResponse")]
         BLL.EntitesDTO.AppointmentDTO[] GetAppointments();
@@ -187,12 +187,12 @@ namespace WebApiNET.ServiceReference {
             return base.Channel.DisconnectAsync(id);
         }
         
-        public void Callback(int id) {
-            base.Channel.Callback(id);
+        public void Callback() {
+            base.Channel.Callback();
         }
         
-        public System.Threading.Tasks.Task CallbackAsync(int id) {
-            return base.Channel.CallbackAsync(id);
+        public System.Threading.Tasks.Task CallbackAsync() {
+            return base.Channel.CallbackAsync();
         }
         
         public BLL.EntitesDTO.AppointmentDTO[] GetAppointments() {

@@ -50,9 +50,9 @@ namespace OutlookService
             }
         }
 
-        public void Callback(int id)
+        public void Callback()
         {
-            foreach (var item in _callbackDictionary.Where(s => s.Key != id))
+            foreach (var item in _callbackDictionary)
             {
                 _logger.Trace($"Callback for {item.Key}");
                 item.Value.OnCallback();
@@ -136,7 +136,7 @@ namespace OutlookService
             try
             {
                 _service = _kernel.Get<IBLLServiceMain>();
-                var appointment = _service.AddAppointmentWeb(addApp, id);
+                var appointment = _service.AddAppointment(addApp, id);
                 if (appointment != null)
                 {
                     _logger.Trace($"Create appointment with ID {appointment.AppointmentId} successfully");

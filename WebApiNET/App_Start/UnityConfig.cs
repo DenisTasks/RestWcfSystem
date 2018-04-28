@@ -25,8 +25,6 @@ namespace WebApiNET
             //container.RegisterType<WPFOutlookContext, WPFOutlookContext>(new PerRequestLifetimeManager());
             container.RegisterType<IBLLServiceMain, BLLServiceMain>();
             //container.RegisterType(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            container.RegisterType<ILogService, LogService>();
-            container.RegisterType<INotifyService, NotifyService>();
         }
     }
 }

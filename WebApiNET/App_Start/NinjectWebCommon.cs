@@ -10,8 +10,8 @@ using Ninject.Web.Common.WebHost;
 using Ninject.Web.WebApi;
 using WebApiNET;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
+//[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+//[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
 
 namespace WebApiNET
 {
@@ -56,8 +56,6 @@ namespace WebApiNET
             //kernel.Bind<WPFOutlookContext>().ToSelf().InScope(s => HttpContext.Current).WithConstructorArgument("connectionString", "WPFOutlookContext");
             //kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
             kernel.Bind<IBLLServiceMain>().To<BLLServiceMain>();
-            kernel.Bind<ILogService>().To<LogService>();
-            kernel.Bind<INotifyService>().To<NotifyService>();
         }
     }
 }
