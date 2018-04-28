@@ -88,28 +88,6 @@ namespace Model
                     cs.MapRightKey("NotificationId");
                     cs.ToTable("UserNotifications");
                 });
-
-            //modelBuilder.Entity<Group>()
-            //    .HasMany<Group>(s => s.Groups)
-            //    .WithMany()
-            //    .Map(cs =>
-            //    {
-            //        cs.MapLeftKey("GroupId");
-            //        cs.MapRightKey("RelatedId");
-            //        cs.ToTable("GroupGroups");
-            //    });
-
-
-            //modelBuilder.Entity<Group>()
-            //    .HasMany<Appointment>(s => s.Appointments)
-            //    .WithMany(c => c.Users)
-            //    .Map(cs =>
-            //    {
-            //        cs.MapLeftKey("UserId");
-            //        cs.MapRightKey("AppointmentId");
-            //        cs.ToTable("UserAppointments");
-            //    });
-
         }
     }
 }

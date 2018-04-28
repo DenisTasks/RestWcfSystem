@@ -71,8 +71,8 @@
     <Compile Include="EntitesDTO\AppointmentDTO.cs" />
     <Compile Include="EntitesDTO\LocationDTO.cs" />
     <Compile Include="EntitesDTO\UserDTO.cs" />
-    <Compile Include="BLLService\BLLServiceMain.cs" />
-    <Compile Include="Interfaces\IBLLServiceMain.cs" />
+    <Compile Include="BLLService\BllServiceMain.cs" />
+    <Compile Include="Interfaces\IBllServiceMain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

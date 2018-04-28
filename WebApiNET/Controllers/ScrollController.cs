@@ -14,7 +14,7 @@ namespace WebApiNET.Controllers
     public class ScrollController : ApiController
     {
         private readonly OutlookServiceClient _client;
-        public int PageSize = 10;
+        private readonly int PageSize = 10;
 
         public ScrollController()
         {

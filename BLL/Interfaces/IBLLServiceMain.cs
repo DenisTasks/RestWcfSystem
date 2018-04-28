@@ -4,7 +4,7 @@ using BLL.EntitesDTO;
 
 namespace BLL.Interfaces
 {
-    public interface IBLLServiceMain
+    public interface IBllServiceMain
     {
         IEnumerable<AppointmentDTO> GetAppointmentsByUserId(int id);
         IEnumerable<AppointmentDTO> GetAppointmentsByUserIdSqlText(int id, int itemsToSkip, int pageSize);

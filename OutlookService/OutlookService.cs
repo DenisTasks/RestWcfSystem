@@ -16,7 +16,6 @@ namespace OutlookService
     {
         private readonly IDictionary<int, IOutlookServiceCallback> _callbackDictionary;
         private readonly ILogger _logger;
-        private IBLLServiceMain _service;
         private readonly IKernel _kernel;
 
         public OutlookService(IKernel kernel)
@@ -61,8 +60,8 @@ namespace OutlookService
 
         public List<AppointmentDTO> GetAppointments()
         {
-            _service = _kernel.Get<IBLLServiceMain>();
-            var appList = _service.GetAppointmentsByUserId(1).ToList();
+            var service = _kernel.Get<IBllServiceMain>();
+            var appList = service.GetAppointmentsByUserId(1).ToList();
             foreach (var item in appList)
             {
                 _logger.Trace($"Get appointment with ID {item.AppointmentId} from database to Index Page");
@@ -72,8 +71,8 @@ namespace OutlookService
 
         public List<AppointmentDTO> GetAppointmentsWithSql(int id, int itemsToSkip, int pageSize)
         {
-            _service = _kernel.Get<IBLLServiceMain>();
-            var appList = _service.GetAppointmentsByUserIdSqlText(id, itemsToSkip, pageSize).ToList();
+            var service = _kernel.Get<IBllServiceMain>();
+            var appList = service.GetAppointmentsByUserIdSqlText(id, itemsToSkip, pageSize).ToList();
             foreach (var item in appList)
             {
                 _logger.Trace($"Get appointment with ID {item.AppointmentId} from database to Scrolling Page");
@@ -83,8 +82,8 @@ namespace OutlookService
 
         public AppointmentDTO UpdateAppointment(AppointmentDTO updateApp)
         {
-            _service = _kernel.Get<IBLLServiceMain>();
-            var appointment = _service.UpdateAppointment(updateApp);
+            var service = _kernel.Get<IBllServiceMain>();
+            var appointment = service.UpdateAppointment(updateApp);
             if (appointment != null)
             {
                 _logger.Trace($"Appointment with ID {appointment.AppointmentId} updated sucessfully");
@@ -97,8 +96,8 @@ namespace OutlookService
         {
             try
             {
-                _service = _kernel.Get<IBLLServiceMain>();
-                var appointment = _service.GetAppointmentById(id);
+                var service = _kernel.Get<IBllServiceMain>();
+                var appointment = service.GetAppointmentById(id);
                 if (appointment != null)
                 {
                     _logger.Trace($"Get appointment with ID {appointment.AppointmentId} from database");
@@ -116,8 +115,8 @@ namespace OutlookService
         {
             try
             {
-                _service = _kernel.Get<IBLLServiceMain>();
-                var appointment = _service.RemoveAppointment(id);
+                var service = _kernel.Get<IBllServiceMain>();
+                var appointment = service.RemoveAppointment(id);
                 if (appointment != null)
                 {
                     _logger.Trace($"Remove appointment with ID {appointment.AppointmentId} successfully");
@@ -135,8 +134,8 @@ namespace OutlookService
         {
             try
             {
-                _service = _kernel.Get<IBLLServiceMain>();
-                var appointment = _service.AddAppointment(addApp, id);
+                var service = _kernel.Get<IBllServiceMain>();
+                var appointment = service.AddAppointment(addApp, id);
                 if (appointment != null)
                 {
                     _logger.Trace($"Create appointment with ID {appointment.AppointmentId} successfully");

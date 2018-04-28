@@ -12,14 +12,14 @@ using Model.Interfaces;
 
 namespace BLL.BLLService
 {
-    public class BLLServiceMain : IBLLServiceMain
+    public class BllServiceMain : IBllServiceMain
     {
         private readonly WPFOutlookContext _context;
         private readonly IGenericRepository<Appointment> _appointments;
         private readonly IGenericRepository<User> _users;
         private readonly IGenericRepository<Location> _locations;
 
-        public BLLServiceMain(IGenericRepository<Appointment> appointments, IGenericRepository<User> users, IGenericRepository<Location> locations, WPFOutlookContext context)
+        public BllServiceMain(IGenericRepository<Appointment> appointments, IGenericRepository<User> users, IGenericRepository<Location> locations, WPFOutlookContext context)
         {
             _appointments = appointments;
             _users = users;
