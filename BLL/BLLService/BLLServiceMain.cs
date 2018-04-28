@@ -48,12 +48,12 @@ namespace BLL.BLLService
 
         public AppointmentDTO GetAppointmentById(int id)
         {
-            Appointment app;
+            Appointment appointment;
             using (_appointments.BeginTransaction())
             {
-                app = _appointments.FindById(id);
+                appointment = _appointments.FindById(id);
             }
-            var mappingItem = Mapper.Map<Appointment, AppointmentDTO>(app);
+            var mappingItem = Mapper.Map<Appointment, AppointmentDTO>(appointment);
             return mappingItem;
         }
 
@@ -71,13 +71,15 @@ namespace BLL.BLLService
                         {
                             while (appointmentReader.Read())
                             {
-                                var getApp = new Appointment();
-                                getApp.AppointmentId = appointmentReader.GetInt32(0);
-                                getApp.Subject = appointmentReader.GetString(1);
-                                getApp.BeginningDate = appointmentReader.GetDateTime(2);
-                                getApp.EndingDate = appointmentReader.GetDateTime(3);
-                                getApp.OrganizerId = appointmentReader.GetInt32(4);
-                                getApp.LocationId = appointmentReader.GetInt32(5);
+                                var getApp = new Appointment
+                                {
+                                    AppointmentId = appointmentReader.GetInt32(0),
+                                    Subject = appointmentReader.GetString(1),
+                                    BeginningDate = appointmentReader.GetDateTime(2),
+                                    EndingDate = appointmentReader.GetDateTime(3),
+                                    OrganizerId = appointmentReader.GetInt32(4),
+                                    LocationId = appointmentReader.GetInt32(5)
+                                };
 
 
                                 collection.Add(getApp);

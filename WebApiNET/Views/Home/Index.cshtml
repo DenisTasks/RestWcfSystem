@@ -12,18 +12,27 @@
 
     <form name="appForm">
 
-        <input type="hidden" name="appId" value="0" />
-        <input type="hidden" name="arrayId" value="0" />
+        <input type="hidden" 
+               name="appId" 
+               value="0" />
+        <input type="hidden" 
+               name="arrayId" 
+               value="0" />
 
         <div class="form-group">
             <label>Subject:</label>
-            <input class="form-control" name="subjectText" data-bind="textInput: subjectInput" />
+            <input class="form-control" 
+                   name="subjectText" 
+                   data-bind="textInput: subjectInput" />
         </div>
 
         <div class="panel-body">
-            <button class="btn btn-sm btn-primary" data-bind="click: resetButton">Reset</button>
-            <button type="submit" class="btn btn-sm btn-primary">Save with Knockout</button>
-            <a href="@Url.Action("Scrolling")" class="btn btn-sm btn-primary">To scroll page</a>
+            <button class="btn btn-sm btn-primary" 
+                    data-bind="click: resetButton">Reset</button>
+            <button type="submit" 
+                    class="btn btn-sm btn-primary">Save with Knockout</button>
+            <a href="@Url.Action("Scrolling")" 
+               class="btn btn-sm btn-primary">To scroll page</a>
         </div>
 
     </form>
