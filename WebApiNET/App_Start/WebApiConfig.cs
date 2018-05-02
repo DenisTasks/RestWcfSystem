@@ -23,6 +23,12 @@ namespace WebApiNET
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            //config.Routes.MapHttpRoute(
+            //    name: "UserApi",
+            //    routeTemplate: "api/{controller}/{appId}/user",
+            //    defaults: new { appId = RouteParameter.Optional }
+            //);
+
             config.Formatters.Add(new CustomFormatter());
         }
     }
