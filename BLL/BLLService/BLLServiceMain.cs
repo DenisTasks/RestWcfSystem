@@ -14,7 +14,6 @@ namespace BLL.BLLService
 {
     public class BllServiceMain : IBllServiceMain
     {
-        //
         private readonly WPFOutlookContext _context;
         private readonly IGenericRepository<Appointment> _appointments;
         private readonly IGenericRepository<User> _users;
