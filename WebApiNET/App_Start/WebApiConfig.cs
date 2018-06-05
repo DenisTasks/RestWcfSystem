@@ -20,14 +20,18 @@ namespace WebApiNET
             config.Routes.MapHttpRoute(
                 name: "PageApi",
                 routeTemplate: "api/{controller}/{page}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { page = RouteParameter.Optional }
             );
 
-            //config.Routes.MapHttpRoute(
-            //    name: "UserApi",
-            //    routeTemplate: "api/{controller}/{appId}/user",
-            //    defaults: new { appId = RouteParameter.Optional }
-            //);
+            config.Routes.MapHttpRoute(
+                name: "RouteCreateResponse",
+                routeTemplate: "api2/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional },
+                constraints: null,
+                handler: new CustomHandler()
+            );
+
+            config.MessageHandlers.Add(new CustomHandler());
 
             config.Formatters.Add(new CustomFormatter());
         }
