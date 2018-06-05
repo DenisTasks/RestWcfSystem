@@ -1,32 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Net.Security;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using BLL.EntitesDTO;
+using OutlookService.DTOs;
 
 namespace OutlookService.Interfaces
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IOutlookServiceCallback))]
     public interface IOutlookService
     {
-        [OperationContract(IsOneWay = false)]
-        void Connect();
+        [OperationContract(IsOneWay = true)]
+        void Connect(int id);
 
         [OperationContract(IsOneWay = true)]
-        void Disconnect();
+        void Disconnect(int id);
 
         [OperationContract(IsOneWay = true)]
         void Callback();
 
-        //[OperationContract(IsOneWay = false, ProtectionLevel = ProtectionLevel.None)]
         [OperationContract(IsOneWay = false)]
         List<AppointmentDTO> GetAppointments();
 
-        //[OperationContract(IsOneWay = false, ProtectionLevel = ProtectionLevel.Sign)]
         [OperationContract(IsOneWay = false)]
-
         List<AppointmentDTO> GetAppointmentsWithSql(int id, int itemsToSkip, int pageSize);
 
-        //[OperationContract(IsOneWay = false, ProtectionLevel = ProtectionLevel.EncryptAndSign)]
         [OperationContract(IsOneWay = false)]
         AppointmentDTO GetAppointmentById(int id);
 

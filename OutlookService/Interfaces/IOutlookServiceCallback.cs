@@ -6,13 +6,13 @@ using OutlookService.DTOs;
 
 namespace OutlookService.Interfaces
 {
-    //[ServiceContract]
-    //public interface IOutlookServiceCallback
-    //{
-    //    [OperationContract(Name = "CallbackEmpty")]
-    //    void OnCallback();
+    [ServiceContract]
+    public interface IOutlookServiceCallback
+    {
+        [OperationContract(Name = "CallbackEmpty")]
+        void OnCallback();
 
-    //    [OperationContract(Name = "CallbackFull")]
-    //    void OnCallback(TransferData list);
-    //}
+        [OperationContract(Name = "CallbackFull")]
+        void OnCallback(TransferData list);
+    }
 }

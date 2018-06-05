@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.ServiceModel;
 using System.Web.Http;
 using System.Web.Http.OData;
-using System.Windows;
 using BLL.EntitesDTO;
 using WebApiNET.ServiceReference;
 using WebApiNET.Util;
@@ -16,16 +14,16 @@ namespace WebApiNET.Controllers
     public class ScrollController : ApiController
     {
         private readonly OutlookServiceClient _client;
-        private readonly int _pageSize = 10;
+        private readonly int PageSize = 10;
 
         public ScrollController()
         {
-            //var callback = new OutlookServiceCallback();
-            //var instanceContext = new InstanceContext(callback);
-            _client = new OutlookServiceClient();
+            var callback = new OutlookServiceCallback();
+            var instanceContext = new InstanceContext(callback);
+            _client = new OutlookServiceClient(instanceContext);
             try
             {
-                _client.Connect();
+                _client.Connect(1);
             }
             catch (Exception)
             {
@@ -35,16 +33,8 @@ namespace WebApiNET.Controllers
 
         public HttpResponseMessage GetAppointment(int id)
         {
-            var itemsToSkip = id * _pageSize;
-            List<AppointmentDTO> collection = new List<AppointmentDTO>();
-            try
-            {
-                collection = _client.GetAppointmentsWithSql(1, itemsToSkip, _pageSize).ToList();
-            }
-            catch (FaultException e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            var itemsToSkip = id * PageSize;
+            var collection = _client.GetAppointmentsWithSql(1, itemsToSkip, PageSize);
             var response = Request.CreateResponse(HttpStatusCode.OK, collection.AsQueryable());
 
             return response;
@@ -53,8 +43,8 @@ namespace WebApiNET.Controllers
         [EnableQuery]
         public HttpResponseMessage GetPage(int page)
         {
-            var itemsToSkip = page * _pageSize;
-            var collection = _client.GetAppointmentsWithSql(1, itemsToSkip, _pageSize);
+            var itemsToSkip = page * PageSize;
+            var collection = _client.GetAppointmentsWithSql(1, itemsToSkip, PageSize);
             var response = Request.CreateResponse(HttpStatusCode.OK, collection.AsQueryable());
 
             return response;

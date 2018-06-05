@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace BLL.EntitesDTO
 {
-    [DataContract, Serializable]
+    [DataContract]
     public class AppointmentDTO
     {
-        public AppointmentDTO()
-        { }
-
         [DataMember]
         public int AppointmentId { get; set; }
         [DataMember]
@@ -27,6 +23,6 @@ namespace BLL.EntitesDTO
         [DataMember]
         public string Room { get; set; }
 
-        public List<UserDTO> Users { get; set; }
+        public ICollection<UserDTO> Users { get; set; }
     }
 }

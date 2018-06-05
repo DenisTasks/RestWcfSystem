@@ -77,9 +77,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Code\Authentication\CustomValidator.cs" />
-    <Compile Include="App_Code\Authorization\AuthorizationPolicy.cs" />
-    <Compile Include="App_Code\Authorization\CustomPrincipal.cs" />
     <Compile Include="DTOs\TransferData.cs" />
     <Compile Include="Interfaces\IOutlookService.cs" />
     <Compile Include="Interfaces\IOutlookServiceCallback.cs" />
@@ -87,6 +84,9 @@
     <Compile Include="OutlookService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
