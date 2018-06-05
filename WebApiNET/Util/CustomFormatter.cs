@@ -28,7 +28,7 @@ namespace WebApiNET.Util
         public override async Task WriteToStreamAsync(Type type, object value,
             Stream writeStream, HttpContent content, TransportContext transportContext)
         {
-            List<string> appsString = new List<string>();
+            var appsString = new List<string>();
             IEnumerable<AppointmentDTO> apps;
             if (value is AppointmentDTO)
             {

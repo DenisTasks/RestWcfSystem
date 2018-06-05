@@ -30,10 +30,17 @@ namespace BLL.BLLService
         public IEnumerable<AppointmentDTO> GetAppointmentsByUserId(int id)
         {
             List<Appointment> collection;
-            using (_appointments.BeginTransaction())
+            try
             {
-                //collection = _appointments.Get(x => x.Users.Any(s => s.UserId == id)).ToList();
-                collection = _appointments.Get().ToList();
+                using (_appointments.BeginTransaction())
+                {
+                    //collection = _appointments.Get(x => x.Users.Any(s => s.UserId == id)).ToList();
+                    collection = _appointments.Get().ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
             var mappingCollection = Mapper.Map<IEnumerable<Appointment>, IEnumerable<AppointmentDTO>>(collection).ToList();
             foreach (var item in mappingCollection)
@@ -61,32 +68,38 @@ namespace BLL.BLLService
         {
             List<Appointment> collection = new List<Appointment>();
             string connectionString = ConfigurationManager.ConnectionStrings["WPFOutlookContext"].ConnectionString;
-            using (var cnn = new SqlConnection(connectionString))
+            try
             {
-                using (var cmd = new SqlCommand("SELECT * FROM Appointments", cnn))
+                using (var cnn = new SqlConnection(connectionString))
                 {
+                    using (var cmd = new SqlCommand("SELECT * FROM Appointments", cnn))
                     {
-                        cnn.Open();
-                        using (SqlDataReader appointmentReader = cmd.ExecuteReader())
                         {
-                            while (appointmentReader.Read())
+                            cnn.Open();
+                            using (SqlDataReader appointmentReader = cmd.ExecuteReader())
                             {
-                                var getApp = new Appointment
+                                while (appointmentReader.Read())
                                 {
-                                    AppointmentId = appointmentReader.GetInt32(0),
-                                    Subject = appointmentReader.GetString(1),
-                                    BeginningDate = appointmentReader.GetDateTime(2),
-                                    EndingDate = appointmentReader.GetDateTime(3),
-                                    OrganizerId = appointmentReader.GetInt32(4),
-                                    LocationId = appointmentReader.GetInt32(5)
-                                };
+                                    var getApp = new Appointment
+                                    {
+                                        AppointmentId = appointmentReader.GetInt32(0),
+                                        Subject = appointmentReader.GetString(1),
+                                        BeginningDate = appointmentReader.GetDateTime(2),
+                                        EndingDate = appointmentReader.GetDateTime(3),
+                                        OrganizerId = appointmentReader.GetInt32(4),
+                                        LocationId = appointmentReader.GetInt32(5)
+                                    };
 
-
-                                collection.Add(getApp);
+                                    collection.Add(getApp);
+                                }
                             }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
             var mappingCollection = Mapper.Map<IEnumerable<Appointment>, IEnumerable<AppointmentDTO>>(collection).ToList();
             return mappingCollection.OrderBy(a => a.AppointmentId).Skip(itemsToSkip).Take(pageSize).ToList();

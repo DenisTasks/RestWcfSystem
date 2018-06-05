@@ -1,177 +1,215 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Net.Http;
-//using BLL.EntitesDTO;
-//using BLL.Interfaces;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using Moq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using BLL.BLLService;
+using BLL.EntitesDTO;
+using BLL.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Ninject;
 
-//namespace OutlookService.Tests
-//{
-//    [TestClass]
-//    public class OutlookServiceTests
-//    {
-//        [TestMethod]
-//        public void Get_ShouldReturnAllApps()
-//        {
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            mockBLL.Setup(s => s.GetAppointmentsByUserId(1)).Returns(new List<AppointmentDTO>
-//                        {
-//                            new AppointmentDTO { AppointmentId = 1, Subject = "test1" },
-//                            new AppointmentDTO { AppointmentId = 2, Subject = "test2" },
-//                            new AppointmentDTO { AppointmentId = 3, Subject = "test3" },
-//                            new AppointmentDTO { AppointmentId = 4, Subject = "test4" },
-//                            new AppointmentDTO { AppointmentId = 5, Subject = "test5" }
-//                        });
-//            var service = new OutlookService(mockBLL.Object);
-//            var result = service.GetAppointments().Count;
+namespace OutlookService.Tests
+{
+    [TestClass]
+    public class Tests
+    {
+        [TestMethod]
+        public void TestBll()
+        {
+            var test = new OutlookService(new StandardKernel());
 
-//            Assert.AreEqual(5, result);
-//        }
+        }
+    }
 
-//        [TestMethod]
-//        public void Get_ShouldReturnCorrectApp()
-//        {
-//            var testApp = new AppointmentDTO { AppointmentId = 4, Subject = "test4" };
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            mockBLL.Setup(s => s.GetAppointmentById(4)).Returns(new AppointmentDTO
-//            {
-//                AppointmentId = 4,
-//                Subject = "test4"
-//            });
-//            var service = new OutlookService(mockBLL.Object);
+    [TestClass]
+    public class OutlookServiceTests
+    {
+        //[TestMethod]
+        //public void TestTDD()
+        //{
+        //    var mockNinject = new Mock<IKernel>();
+        //    var mockBll = new Mock<IBllServiceMain>();
+        //    mockBll.Setup(s => s.GetAppointmentsByUserId(1))
+        //        .Returns(new List<AppointmentDTO>
+        //        {
+        //            new AppointmentDTO {AppointmentId = 1, Subject = "test1"},
+        //            new AppointmentDTO {AppointmentId = 2, Subject = "test2"},
+        //            new AppointmentDTO {AppointmentId = 3, Subject = "test3"},
+        //            new AppointmentDTO {AppointmentId = 4, Subject = "test4"},
+        //            new AppointmentDTO {AppointmentId = 5, Subject = "test5"}
+        //        });
 
-//            var result = service.GetAppointmentById(4);
-//            Assert.IsNotNull(result);
-//            Assert.AreEqual(testApp.Subject, result.Subject);
-//        }
+        //    mockNinject.Setup(s => s.Get<IBllServiceMain>()).Returns(mockBll.Object);
 
-//        [TestMethod]
-//        public void Get_ShouldReturnAllScrollApp()
-//        {
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            mockBLL.Setup(s => s.GetAppointmentsByUserIdSqlText(1, 10, 5)).Returns(new List<AppointmentDTO>
-//            {
-//                new AppointmentDTO { AppointmentId = 1, Subject = "test1" },
-//                new AppointmentDTO { AppointmentId = 2, Subject = "test2" },
-//                new AppointmentDTO { AppointmentId = 3, Subject = "test3" },
-//                new AppointmentDTO { AppointmentId = 4, Subject = "test4" },
-//                new AppointmentDTO { AppointmentId = 5, Subject = "test5" }
-//            });
-//            var service = new OutlookService(mockBLL.Object);
+        //    var service = new OutlookService(mockNinject.Object);
 
-//            var result = service.GetAppointmentsWithSql(1, 10, 5).Count;
-//            Assert.IsNotNull(result);
-//            Assert.AreEqual(5, result);
-//        }
+        //    var result = service.GetAppointments().Count;
 
-//        [TestMethod]
-//        public void Get_ShouldNotFindProduct()
-//        {
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            mockBLL.Setup(s => s.GetAppointmentById(4)).Returns(new AppointmentDTO
-//            {
-//                AppointmentId = 4,
-//                Subject = "test4"
-//            });
+        //    Assert.AreEqual(5, result);
+        //}
 
-//            var service = new OutlookService(mockBLL.Object);
+        //[TestMethod]
+        //public void Get_ShouldReturnAllApps()
+        //{
+        //    var mockBLL = new Mock<BllServiceMain>();
+        //    mockBLL.Setup(s => s.GetAppointmentsByUserId(1)).Returns(new List<AppointmentDTO>
+        //                {
+        //                    new AppointmentDTO { AppointmentId = 1, Subject = "test1" },
+        //                    new AppointmentDTO { AppointmentId = 2, Subject = "test2" },
+        //                    new AppointmentDTO { AppointmentId = 3, Subject = "test3" },
+        //                    new AppointmentDTO { AppointmentId = 4, Subject = "test4" },
+        //                    new AppointmentDTO { AppointmentId = 5, Subject = "test5" }
+        //                });
+        //    var service = new OutlookService(mockBLL.Object);
+        //    var result = service.GetAppointments().Count;
 
-//            var result = service.GetAppointmentById(999);
+        //    Assert.AreEqual(5, result);
+        //}
 
-//            Assert.IsNull(result);
-//        }
+        //[TestMethod]
+        //public void Get_ShouldReturnCorrectApp()
+        //{
+        //    var testApp = new AppointmentDTO { AppointmentId = 4, Subject = "test4" };
+        //    var mockBLL = new Mock<IBllServiceMain>();
+        //    mockBLL.Setup(s => s.GetAppointmentById(4)).Returns(new AppointmentDTO
+        //    {
+        //        AppointmentId = 4,
+        //        Subject = "test4"
+        //    });
+        //    var service = new OutlookService(mockBLL.Object);
 
-//        [TestMethod]
-//        public void Post_CanCreateAppointment()
-//        {
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            var newApp = new AppointmentDTO
-//            {
-//                Subject = "test"
-//            };
-//            var outputApp = new AppointmentDTO
-//            {
-//                AppointmentId = 5,
-//                Subject = "test"
-//            };
-//            mockBLL.Setup(s => s.AddAppointmentWeb(newApp, 1)).Returns(outputApp);
+        //    var result = service.GetAppointmentById(4);
+        //    Assert.IsNotNull(result);
+        //    Assert.AreEqual(testApp.Subject, result.Subject);
+        //}
 
-//            var service = new OutlookService(mockBLL.Object);
+        //[TestMethod]
+        //public void Get_ShouldReturnAllScrollApp()
+        //{
+        //    var mockBLL = new Mock<IBllServiceMain>();
+        //    mockBLL.Setup(s => s.GetAppointmentsByUserIdSqlText(1, 10, 5)).Returns(new List<AppointmentDTO>
+        //    {
+        //        new AppointmentDTO { AppointmentId = 1, Subject = "test1" },
+        //        new AppointmentDTO { AppointmentId = 2, Subject = "test2" },
+        //        new AppointmentDTO { AppointmentId = 3, Subject = "test3" },
+        //        new AppointmentDTO { AppointmentId = 4, Subject = "test4" },
+        //        new AppointmentDTO { AppointmentId = 5, Subject = "test5" }
+        //    });
+        //    var service = new OutlookService(mockBLL.Object);
 
-//            var result = service.AddAppointment(newApp, 1);
+        //    var result = service.GetAppointmentsWithSql(1, 10, 5).Count;
+        //    Assert.IsNotNull(result);
+        //    Assert.AreEqual(5, result);
+        //}
 
-//            Assert.IsNotNull(result);
-//            Assert.AreEqual(result.Subject, "test");
-//            Assert.AreEqual(result.AppointmentId, 5);
-//        }
+        //[TestMethod]
+        //public void Get_ShouldNotFindProduct()
+        //{
+        //    var mockBLL = new Mock<IBllServiceMain>();
+        //    mockBLL.Setup(s => s.GetAppointmentById(4)).Returns(new AppointmentDTO
+        //    {
+        //        AppointmentId = 4,
+        //        Subject = "test4"
+        //    });
 
-//        [TestMethod]
-//        public void Put_CanUpdateAppointment()
-//        {
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            var updateApp = new AppointmentDTO
-//            {
-//                AppointmentId = 1,
-//                Subject = "after"
-//            };
-//            var notUpdatedApp = new AppointmentDTO
-//            {
-//                AppointmentId = 1,
-//                Subject = "before"
-//            };
-//            var updatedApp = new AppointmentDTO
-//            {
-//                AppointmentId = 1,
-//                Subject = "after"
-//            };
+        //    var service = new OutlookService(mockBLL.Object);
 
-//            mockBLL.Setup(s => s.UpdateAppointment(updateApp)).Returns(updatedApp);
-//            mockBLL.Setup(s => s.GetAppointmentById(1)).Returns(notUpdatedApp);
+        //    var result = service.GetAppointmentById(999);
 
-//            var service = new OutlookService(mockBLL.Object);
+        //    Assert.IsNull(result);
+        //}
 
-//            var beforeUpdate = service.GetAppointmentById(1);
-//            var afterUpdate = service.UpdateAppointment(updateApp);
+        //[TestMethod]
+        //public void Post_CanCreateAppointment()
+        //{
+        //    var mockBLL = new Mock<IBllServiceMain>();
+        //    var newApp = new AppointmentDTO
+        //    {
+        //        Subject = "test"
+        //    };
+        //    var outputApp = new AppointmentDTO
+        //    {
+        //        AppointmentId = 5,
+        //        Subject = "test"
+        //    };
+        //    mockBLL.Setup(s => s.AddAppointmentWeb(newApp, 1)).Returns(outputApp);
 
-//            Assert.AreEqual(updateApp.AppointmentId, notUpdatedApp.AppointmentId);
-//            Assert.AreNotEqual(updateApp.Subject, beforeUpdate.Subject);
-//            Assert.AreNotSame(updateApp, notUpdatedApp);
+        //    var service = new OutlookService(mockBLL.Object);
 
-//            Assert.AreNotEqual(beforeUpdate.Subject, afterUpdate.Subject);
+        //    var result = service.AddAppointment(newApp, 1);
 
-//            Assert.AreEqual(updateApp.AppointmentId, afterUpdate.AppointmentId);
-//            Assert.AreEqual(updateApp.Subject, afterUpdate.Subject);
-//            Assert.AreNotSame(updateApp, afterUpdate);
-//            Assert.IsNotNull(afterUpdate);
-//        }
+        //    Assert.IsNotNull(result);
+        //    Assert.AreEqual(result.Subject, "test");
+        //    Assert.AreEqual(result.AppointmentId, 5);
+        //}
 
-//        [TestMethod]
-//        public void Delete_CanRemoveAppointment()
-//        {
-//            var mockBLL = new Mock<IBLLServiceMain>();
-//            var appointment = new AppointmentDTO
-//            {
-//                AppointmentId = 1
-//            };
-//            var successRemovedApp = new AppointmentDTO
-//            {
-//                AppointmentId = 1
-//            };
+        //[TestMethod]
+        //public void Put_CanUpdateAppointment()
+        //{
+        //    var mockBLL = new Mock<IBllServiceMain>();
+        //    var updateApp = new AppointmentDTO
+        //    {
+        //        AppointmentId = 1,
+        //        Subject = "after"
+        //    };
+        //    var notUpdatedApp = new AppointmentDTO
+        //    {
+        //        AppointmentId = 1,
+        //        Subject = "before"
+        //    };
+        //    var updatedApp = new AppointmentDTO
+        //    {
+        //        AppointmentId = 1,
+        //        Subject = "after"
+        //    };
 
-//            mockBLL.Setup(s => s.RemoveAppointment(1)).Returns(successRemovedApp);
-//            mockBLL.Setup(s => s.GetAppointmentById(1));
+        //    mockBLL.Setup(s => s.UpdateAppointment(updateApp)).Returns(updatedApp);
+        //    mockBLL.Setup(s => s.GetAppointmentById(1)).Returns(notUpdatedApp);
 
-//            var service = new OutlookService(mockBLL.Object);
+        //    var service = new OutlookService(mockBLL.Object);
 
-//            var successResult = service.RemoveAppointmentById(1);
-//            var failResult = service.GetAppointmentById(1);
+        //    var beforeUpdate = service.GetAppointmentById(1);
+        //    var afterUpdate = service.UpdateAppointment(updateApp);
 
-//            Assert.IsNotNull(successResult);
-//            Assert.AreNotSame(appointment, successResult);
-//            Assert.AreEqual(appointment.AppointmentId, successResult.AppointmentId);
+        //    Assert.AreEqual(updateApp.AppointmentId, notUpdatedApp.AppointmentId);
+        //    Assert.AreNotEqual(updateApp.Subject, beforeUpdate.Subject);
+        //    Assert.AreNotSame(updateApp, notUpdatedApp);
 
-//            Assert.IsNull(failResult);
-//        }
-//    }
-//}
+        //    Assert.AreNotEqual(beforeUpdate.Subject, afterUpdate.Subject);
+
+        //    Assert.AreEqual(updateApp.AppointmentId, afterUpdate.AppointmentId);
+        //    Assert.AreEqual(updateApp.Subject, afterUpdate.Subject);
+        //    Assert.AreNotSame(updateApp, afterUpdate);
+        //    Assert.IsNotNull(afterUpdate);
+        //}
+
+        //[TestMethod]
+        //public void Delete_CanRemoveAppointment()
+        //{
+        //    var mockBLL = new Mock<IBllServiceMain>();
+        //    var appointment = new AppointmentDTO
+        //    {
+        //        AppointmentId = 1
+        //    };
+        //    var successRemovedApp = new AppointmentDTO
+        //    {
+        //        AppointmentId = 1
+        //    };
+
+        //    mockBLL.Setup(s => s.RemoveAppointment(1)).Returns(successRemovedApp);
+        //    mockBLL.Setup(s => s.GetAppointmentById(1));
+
+        //    var service = new OutlookService(mockBLL.Object);
+
+        //    var successResult = service.RemoveAppointmentById(1);
+        //    var failResult = service.GetAppointmentById(1);
+
+        //    Assert.IsNotNull(successResult);
+        //    Assert.AreNotSame(appointment, successResult);
+        //    Assert.AreEqual(appointment.AppointmentId, successResult.AppointmentId);
+
+        //    Assert.IsNull(failResult);
+        //}
+    }
+}

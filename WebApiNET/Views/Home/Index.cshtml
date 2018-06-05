@@ -73,12 +73,12 @@
         }
 
         self.getFromServer = function () {
-            $.get("/api/appointment", self.apps);
+            $.get("Web/api/appointment", self.apps);
         }
 
         self.getAppById = function (id) {
             $.ajax({
-                url: '/api/appointment/' + id,
+                url: 'Web/api/appointment/' + id,
                 type: 'GET',
                 contentType: "application/json",
                 success: function (app) {
@@ -91,7 +91,7 @@
 
         self.putApp = function (id, subject) {
             $.ajax({
-                url: "/api/appointment",
+                url: "Web/api/appointment",
                 type: "PUT",
                 data: JSON.stringify({
                     AppointmentId: id,
@@ -116,7 +116,7 @@
         self.postToServer = function () {
             var jsonData = ko.toJSON(subjectToJson);
             $.ajax({
-                url: "/api/appointment",
+                url: "Web/api/appointment",
                 type: "POST",
                 data: jsonData,
                 datatype: "json",
@@ -131,7 +131,7 @@
 
         self.removeApp = function (app) {
             $.ajax({
-                url: "/api/appointment/" + app.AppointmentId,
+                url: "Web/api/appointment/" + app.AppointmentId,
                 contentType: "application/json",
                 method: "DELETE",
                 success: function () {
@@ -158,6 +158,10 @@
         });
 
         self.getFromServer();
+
+        window.onbeforeunload = function () {
+            self.getFromServer();
+        };
     }
 
     ko.applyBindings(new AppViewModel());

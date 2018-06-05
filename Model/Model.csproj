@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201803231010029_NotifyAdded.Designer.cs">
       <DependentUpon>201803231010029_NotifyAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805031335497_Test.cs" />
+    <Compile Include="Migrations\201805031335497_Test.Designer.cs">
+      <DependentUpon>201805031335497_Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelService\GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803231010029_NotifyAdded.resx">
       <DependentUpon>201803231010029_NotifyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805031335497_Test.resx">
+      <DependentUpon>201805031335497_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,12 @@ namespace WebApiNET
             );
 
             config.Routes.MapHttpRoute(
+                name: "DefaultApiWeb",
+                routeTemplate: "Web/api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "PageApi",
                 routeTemplate: "api/{controller}/{page}",
                 defaults: new { id = RouteParameter.Optional }

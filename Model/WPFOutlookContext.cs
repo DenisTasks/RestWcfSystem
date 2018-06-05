@@ -4,45 +4,45 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
-using static Model.WPFOutlookInitializer;
+//using static Model.WPFOutlookInitializer;
 using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
 
 namespace Model
 {
-    public class WPFOutlookInitializer : IDatabaseInitializer<WPFOutlookContext>
-    {
-        public void InitializeDatabase(WPFOutlookContext context)
-        {
-            if (!context.Database.Exists())
-            {
-                context.Database.Create();
-                var salt = EncryptionHelpers.GenerateSalt();
-                User user = new User
-                {
-                    UserId = 1,
-                    IsActive = true,
-                    Name = "admin",
-                    UserName = "admin",
-                    Salt = salt,
-                    Password = EncryptionHelpers.HashPassword("admin", salt)
-                };
-                context.Users.Add(user);
-                context.Roles.Add(new Role { RoleId = 1, Name = "admin", Users = new List<User> { user } });
-                context.Roles.Add(new Role { RoleId = 2, Name = "user", Users = new List<User> { user } });
-                context.Locations.Add(new Location {LocationId = 1, Room = "Room1"});
-                context.Locations.Add(new Location { LocationId = 2, Room = "Room2" });
-                context.SaveChanges();
-            }
-        }
-    }
+    //public class WPFOutlookInitializer : IDatabaseInitializer<WPFOutlookContext>
+    //{
+    //    public void InitializeDatabase(WPFOutlookContext context)
+    //    {
+    //        if (!context.Database.Exists())
+    //        {
+    //            context.Database.Create();
+    //            var salt = EncryptionHelpers.GenerateSalt();
+    //            User user = new User
+    //            {
+    //                UserId = 1,
+    //                IsActive = true,
+    //                Name = "admin",
+    //                UserName = "admin",
+    //                Salt = salt,
+    //                Password = EncryptionHelpers.HashPassword("admin", salt)
+    //            };
+    //            context.Users.Add(user);
+    //            context.Roles.Add(new Role { RoleId = 1, Name = "admin", Users = new List<User> { user } });
+    //            context.Roles.Add(new Role { RoleId = 2, Name = "user", Users = new List<User> { user } });
+    //            context.Locations.Add(new Location {LocationId = 1, Room = "Room1"});
+    //            context.Locations.Add(new Location { LocationId = 2, Room = "Room2" });
+    //            context.SaveChanges();
+    //        }
+    //    }
+    //}
 
 
     public class WPFOutlookContext : DbContext
     {
         public WPFOutlookContext()
-            : base("name=WPFOutlookContext")
+            : base("WPFOutlookContext")
         {
-            Database.SetInitializer(new WPFOutlookInitializer());
+            //Database.SetInitializer(new WPFOutlookInitializer());
         }
 
         public DbSet<Appointment> Appointments { get; set; }

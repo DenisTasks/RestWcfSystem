@@ -1,0 +1,106 @@
+﻿<div class="userInfo" style="display:none;">
+    <p>Вы вошли как: <span class="userName"></span></p>
+    <input type="button" value="Выйти" id="logOut" />
+</div>
+<div class="loginForm">
+    <h3>Вход на сайт</h3>
+    <label>Введите email</label><br />
+    <input type="email" id="emailLogin" /> <br /><br />
+    <label>Введите пароль</label><br />
+    <input type="password" id="passwordLogin" /><br /><br />
+    <input type="submit" id="submitLogin" value="Логин" />
+</div>
+<div>
+    <input type="submit" id="getItemsButton" value="Получить данные" />
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(function() {
+            $('#submit').click(function(e) {
+                e.preventDefault();
+                var data = {
+                    Email: $('#email').val(),
+                    Password: $('#password').val(),
+                    ConfirmPassword: $('#confirmpassword').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Account/Register',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    success: function(data) {
+                        alert("Success!");
+                    },
+                    fail: function(data) {
+                        alert("Fail!");
+                    },
+                    error: function(data) {
+                        alert("Error!");
+                    }
+                });
+            });
+
+
+
+
+                var tokenKey = "tokenInfo";
+                $('#submitLogin').click(function(e) {
+                    e.preventDefault();
+                    var loginData = {
+                        grant_type: 'password',
+                        username: $('#emailLogin').val(),
+                        password: $('#passwordLogin').val()
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Token',
+                        data: loginData,
+                        success: function(data) {
+                            $('.userName').text(data.userName);
+                            $('.userInfo').css('display', 'block');
+                            $('.loginForm').css('display', 'none');
+
+                            sessionStorage.setItem(tokenKey, data.access_token);
+                            console.log(data.access_token);
+                        },
+                        fail: function(data) {
+                            alert("Fail login!");
+                        },
+                        error: function(data) {
+                            alert("Error!");
+                        }
+                    });
+
+                    $('#logOut').click(function(e) {
+                        e.preventDefault();
+                        sessionStorage.removeItem(tokenKey);
+                    });
+            });
+
+                $('#getItemsButton').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/values/',
+                        beforeSend: function (xhr) {
+                     
+                            var token = sessionStorage.getItem(tokenKey);
+                            xhr.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                        success: function (data) {
+                            alert(data);
+                        },
+                        fail: function (data) {
+                            alert(data);
+                        },
+                        error: function(data) {
+                            alert(data);
+                        }
+                    });
+                });
+            });
+
+    </script>
+}

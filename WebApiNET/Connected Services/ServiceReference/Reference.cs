@@ -9,86 +9,23 @@
 //------------------------------------------------------------------------------
 
 namespace WebApiNET.ServiceReference {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TransferData", Namespace="http://schemas.datacontract.org/2004/07/OutlookService.DTOs")]
-    [System.SerializableAttribute()]
-    public partial class TransferData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool BoolValue {
-            get {
-                return this.BoolValueField;
-            }
-            set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StringValue {
-            get {
-                return this.StringValueField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IOutlookService", CallbackContract=typeof(WebApiNET.ServiceReference.IOutlookServiceCallback))]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IOutlookService")]
     public interface IOutlookService {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Connect")]
-        void Connect(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/Connect", ReplyAction="http://tempuri.org/IOutlookService/ConnectResponse")]
+        void Connect();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Connect")]
-        System.Threading.Tasks.Task ConnectAsync(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Disconnect")]
-        void Disconnect(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/Connect", ReplyAction="http://tempuri.org/IOutlookService/ConnectResponse")]
+        System.Threading.Tasks.Task ConnectAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Disconnect")]
-        System.Threading.Tasks.Task DisconnectAsync(int id);
+        void Disconnect();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Disconnect")]
+        System.Threading.Tasks.Task DisconnectAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Callback")]
         void Callback();
@@ -134,57 +71,46 @@ namespace WebApiNET.ServiceReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IOutlookServiceCallback {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/CallbackEmpty", ReplyAction="http://tempuri.org/IOutlookService/CallbackEmptyResponse")]
-        void CallbackEmpty();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOutlookService/CallbackFull", ReplyAction="http://tempuri.org/IOutlookService/CallbackFullResponse")]
-        void CallbackFull(WebApiNET.ServiceReference.TransferData list);
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IOutlookServiceChannel : WebApiNET.ServiceReference.IOutlookService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class OutlookServiceClient : System.ServiceModel.DuplexClientBase<WebApiNET.ServiceReference.IOutlookService>, WebApiNET.ServiceReference.IOutlookService {
+    public partial class OutlookServiceClient : System.ServiceModel.ClientBase<WebApiNET.ServiceReference.IOutlookService>, WebApiNET.ServiceReference.IOutlookService {
         
-        public OutlookServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
-                base(callbackInstance) {
+        public OutlookServiceClient() {
         }
         
-        public OutlookServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
-                base(callbackInstance, endpointConfigurationName) {
+        public OutlookServiceClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
         }
         
-        public OutlookServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
-                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        public OutlookServiceClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
         }
         
-        public OutlookServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        public OutlookServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
         }
         
-        public OutlookServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(callbackInstance, binding, remoteAddress) {
+        public OutlookServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
         }
         
-        public void Connect(int id) {
-            base.Channel.Connect(id);
+        public void Connect() {
+            base.Channel.Connect();
         }
         
-        public System.Threading.Tasks.Task ConnectAsync(int id) {
-            return base.Channel.ConnectAsync(id);
+        public System.Threading.Tasks.Task ConnectAsync() {
+            return base.Channel.ConnectAsync();
         }
         
-        public void Disconnect(int id) {
-            base.Channel.Disconnect(id);
+        public void Disconnect() {
+            base.Channel.Disconnect();
         }
         
-        public System.Threading.Tasks.Task DisconnectAsync(int id) {
-            return base.Channel.DisconnectAsync(id);
+        public System.Threading.Tasks.Task DisconnectAsync() {
+            return base.Channel.DisconnectAsync();
         }
         
         public void Callback() {
