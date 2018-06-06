@@ -76,7 +76,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="DTOs\TransferData.cs" />
     <Compile Include="Interfaces\IOutlookService.cs" />
     <Compile Include="Interfaces\IOutlookServiceCallback.cs" />

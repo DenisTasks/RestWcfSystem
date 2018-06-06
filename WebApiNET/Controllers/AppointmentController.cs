@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.ServiceModel;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
+using System.Web.Http.ValueProviders;
 using BLL.EntitesDTO;
 using WebApiNET.ServiceReference;
 using WebApiNET.Util;
@@ -61,8 +64,10 @@ namespace WebApiNET.Controllers
             return NotFound();
         }
 
-        public IHttpActionResult Post([FromBody]AppointmentDTO app)
+        public IHttpActionResult Post([ModelBinder]AppointmentDTO app)
         {
+            Trace.WriteLine("AppointmentController. Method POST started with subject: " + app.Subject);
+            Trace.WriteLine("AppointmentController. Method POST started with locationId: " + app.LocationId);
             if (app == null || !ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -71,7 +76,7 @@ namespace WebApiNET.Controllers
             {
                 BeginningDate = DateTime.Now,
                 EndingDate = DateTime.Now.AddHours(1),
-                LocationId = 1,
+                LocationId = app.LocationId,
                 Subject = app.Subject
             };
             var appointment = _client.AddAppointment(outputMapped, 1);
