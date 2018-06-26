@@ -8,55 +8,68 @@
     @Scripts.Render("~/bundles/appointment")
 </head>
 <body>
-    <h2>Web API .NET</h2>
+<button width="200px" height="200px" id="visibleInvisible" class="btn btn-sm btn-primary">Hide all</button>
+<h2>Web API .NET</h2>
 
-    <form name="appForm">
+<form name="appForm">
 
-        <input type="hidden" 
-               name="appId" 
-               value="0" />
-        <input type="hidden" 
-               name="arrayId" 
-               value="0" />
+    <input type="hidden"
+           name="appId"
+           value="0"/>
+    <input type="hidden"
+           name="arrayId"
+           value="0"/>
 
-        <div class="form-group">
-            <label>Subject:</label>
-            <input class="form-control" 
-                   name="subjectText" 
-                   data-bind="textInput: subjectInput" />
-        </div>
+    <div class="form-group">
+        <label>Subject:</label>
+        <input class="form-control"
+               name="subjectText"
+               data-bind="textInput: subjectInput"/>
+    </div>
 
-        <div class="panel-body">
-            <button class="btn btn-sm btn-primary" 
-                    data-bind="click: resetButton">Reset</button>
-            <button type="submit" 
-                    class="btn btn-sm btn-primary">Save with Knockout</button>
-            <a href="@Url.Action("Scrolling")" 
-               class="btn btn-sm btn-primary">To scroll page</a>
-        </div>
+    <div class="panel-body" id="divBtn">
+        <button class="btn btn-sm btn-primary"
+                data-bind="click: resetButton"
+                id="resetBtn">
+            Reset
+        </button>
+        <button type="submit"
+                class="btn btn-sm btn-primary">
+            Save with Knockout
+        </button>
+        <button id="tableToggle" class="btn btn-sm btn-primary">Видимость/прозрачность</button>
+        <a href="@Url.Action("Scrolling")"
+           class="btn btn-sm btn-primary"
+           id="scrollA">To scroll page</a>
+        <em>Animation for Scroll Button from jQuery!</em>
 
-    </form>
+    </div>
+    <div id="divBtnjQuery">
+        <button id="btn1" class="btn btn-sm btn-primary">jQuery</button>
+    </div>
 
-    <table class="table table-condensed table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Subject</th>
-                <th>Beginning Date</th>
-                <th>Ending Date</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: apps">
-            <tr>
-                <td data-bind="text: AppointmentId"></td>
-                <td data-bind="text: Subject"></td>
-                <td data-bind="text: moment(BeginningDate).format('LLLL')"></td>
-                <td data-bind="text: moment(EndingDate).format('LLLL')"></td>
-                <td><a href="#" data-bind="click: $root.removeApp">Remove</a></td>
-                <td><a href="#" data-bind="click: $root.editApp">Edit</a></td>
-            </tr>
-        </tbody>
-    </table>
+</form>
+
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Subject</th>
+        <th>Beginning Date</th>
+        <th>Ending Date</th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: apps">
+    <tr>
+        <td data-bind="text: AppointmentId"></td>
+        <td data-bind="text: Subject"></td>
+        <td data-bind="text: moment(BeginningDate).format('LLLL')"></td>
+        <td data-bind="text: moment(EndingDate).format('LLLL')"></td>
+        <td><a href="#" data-bind="click: $root.removeApp">Remove</a></td>
+        <td><a href="#" data-bind="click: $root.editApp">Edit</a></td>
+    </tr>
+    </tbody>
+</table>
 
 <script>
     function AppViewModel() {
@@ -65,23 +78,23 @@
         self.subjectInput = ko.observable(null);
         var subjectToJson = { subject: self.subjectInput };
 
-        self.resetButton = function () {
+        self.resetButton = function() {
             var form = document.forms["appForm"];
             form.reset();
             form.elements["appId"].value = 0;
             self.subjectInput(null);
         }
 
-        self.getFromServer = function () {
+        self.getFromServer = function() {
             $.get("/api/appointment", self.apps);
         }
 
-        self.getAppById = function (id) {
+        self.getAppById = function(id) {
             $.ajax({
                 url: '/api/appointment/' + id,
                 type: 'GET',
                 contentType: "application/json",
-                success: function (app) {
+                success: function(app) {
                     var form = document.forms["appForm"];
                     form.elements["appId"].value = app.AppointmentId;
                     form.elements["subjectText"].value = app.Subject;
@@ -89,7 +102,7 @@
             });
         }
 
-        self.putApp = function (id, subject) {
+        self.putApp = function(id, subject) {
             $.ajax({
                 url: "/api/appointment",
                 type: "PUT",
@@ -100,7 +113,7 @@
                 datatype: "json",
                 processData: false,
                 contentType: "application/json; charset=utf-8",
-                success: function (app) {
+                success: function(app) {
                     var form = document.forms["appForm"];
                     var ind = form.elements["arrayId"].value;
                     self.apps.splice(
@@ -113,7 +126,7 @@
             });
         }
 
-        self.postToServer = function () {
+        self.postToServer = function() {
             var jsonData = ko.toJSON(subjectToJson);
             $.ajax({
                 url: "/api/appointment",
@@ -122,32 +135,32 @@
                 datatype: "json",
                 processData: false,
                 contentType: "application/json; charset=utf-8",
-                success: function (app) {
+                success: function(app) {
                     self.resetButton();
                     self.apps.push(app);
                 }
             });
         }
 
-        self.removeApp = function (app) {
+        self.removeApp = function(app) {
             $.ajax({
                 url: "/api/appointment/" + app.AppointmentId,
                 contentType: "application/json",
                 method: "DELETE",
-                success: function () {
+                success: function() {
                     self.apps.remove(app);
                 }
             });
         }
 
-        self.editApp = function (app) {
+        self.editApp = function(app) {
             var form = document.forms["appForm"];
             form.elements["arrayId"].value = self.apps.indexOf(app);
             self.getAppById(app.AppointmentId);
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
 
-        $("form").submit(function (e) {
+        $("form").submit(function(e) {
             e.preventDefault();
             var id = this.elements["appId"].value;
             var subject = this.elements["subjectText"].value;
@@ -161,6 +174,50 @@
     }
 
     ko.applyBindings(new AppViewModel());
+
+    $(function() {
+        $("#btn1").click(function() {
+            $("button", "div#divBtn").css('background-color', 'red');
+            $("#divBtn > a").css('background-color', 'greenyellow');
+            $("button", "div#divBtnjQuery").css({ 'background-color': 'pink', 'width': '100px' });
+            $("th").css({ 'background-color': 'mediumaquamarine', 'font-size': '10px' });
+            $("tr:even").css({ 'background-color': 'sandybrown', 'font-size': '15px' });
+            $("tr:odd").css({ 'background-color': 'aqua', 'font-size': '20px' });
+            //$("th").css('background-color', 'mediumaquamarine');
+            $('#scrollA').css({ 'color': 'red', 'font-size': '42px' });
+
+
+            var newBtn = $("#btn1").first().clone();
+            $("#divBtnjQuery").append(newBtn);
+        });
+        $("#btn1").mouseenter(function() {
+            $(this).css('background-color', 'tomato');
+        });
+        $("#btn1").mouseleave(function() {
+            $(this).css('background-color', 'crimson');
+        });
+
+        $('button#tableToggle').click(function() {
+            $('a').slideToggle('slow');
+            $("#resetBtn").fadeToggle('slow');
+        });
+
+        $('#scrollA').hover(function() {
+                $(this).next("em").animate({ opacity: "show", top: "0" }, "slow");
+            },
+            function() {
+                $(this).next("em").animate({ opacity: "hide", top: "-20" }, "fast");
+            });
+
+        $("#visibleInvisible").click(function() {
+            $("table").fadeToggle('slow');
+            $("form").fadeToggle('slow');
+            $("h2").fadeToggle('slow');
+        });
+
+
+    });
+
 </script>
 
 </body>

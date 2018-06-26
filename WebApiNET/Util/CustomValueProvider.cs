@@ -45,7 +45,7 @@ namespace WebApiNET.Util
 
         public ValueProviderResult GetValue(string key)
         {
-            Trace.WriteLine("In value provider : GetValue key : " + key);
+            Trace.WriteLine($"In value provider : GetValue key : {key} at {DateTime.Now.TimeOfDay}");
             string value;
             if (_values.TryGetValue(key, out value))
             {

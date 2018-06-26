@@ -14,7 +14,7 @@ namespace WebApiNET.Controllers
     public class ScrollController : ApiController
     {
         private readonly OutlookServiceClient _client;
-        private readonly int PageSize = 10;
+        private readonly int PageSize = 30;
 
         public ScrollController()
         {
@@ -23,7 +23,7 @@ namespace WebApiNET.Controllers
             _client = new OutlookServiceClient(instanceContext);
             try
             {
-                _client.Connect(1);
+                _client.Connect("test");
             }
             catch (Exception)
             {

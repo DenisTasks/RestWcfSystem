@@ -14,20 +14,21 @@ namespace OutlookService
                      InstanceContextMode = InstanceContextMode.Single)]
     public class OutlookService : IOutlookService
     {
-        private readonly IDictionary<int, IOutlookServiceCallback> _callbackDictionary;
+        private readonly IDictionary<string, IOutlookServiceCallback> _callbackDictionary;
         private readonly ILogger _logger;
         private readonly IKernel _kernel;
 
         public OutlookService(IKernel kernel)
         {
             _kernel = kernel;
-            _callbackDictionary = new Dictionary<int, IOutlookServiceCallback>();
+            _callbackDictionary = new Dictionary<string, IOutlookServiceCallback>();
             _logger = LogManager.GetCurrentClassLogger();
             _logger.Info(@"Service started");
         }
 
-        public void Connect(int id)
+        public void Connect(string id)
         {
+            _logger.Info(id);
             var callback = OperationContext.Current.GetCallbackChannel<IOutlookServiceCallback>();
             if (callback != null && !_callbackDictionary.ContainsKey(id))
             {
@@ -40,7 +41,7 @@ namespace OutlookService
             }
         }
 
-        public void Disconnect(int id)
+        public void Disconnect(string id)
         {
             if (_callbackDictionary.ContainsKey(id))
             {
@@ -62,10 +63,27 @@ namespace OutlookService
         {
             var service = _kernel.Get<IBllServiceMain>();
             var appList = service.GetAppointmentsByUserId(1).ToList();
-            foreach (var item in appList)
-            {
-                _logger.Trace($"Get appointment with ID {item.AppointmentId} from database to Index Page");
-            }
+            //foreach (var item in appList)
+            //{
+            //    _logger.Trace($"Get appointment with ID {item.AppointmentId} from database to Index Page");
+            //}
+
+            //var outputMapped = new AppointmentDTO
+            //{
+            //    BeginningDate = DateTime.Now,
+            //    EndingDate = DateTime.Now.AddHours(1),
+            //    LocationId = 1,
+            //    Subject = "Gogogo"
+            //};
+            //for (int i = 0; i < 5000; i++)
+            //{
+            //    var appointment = service.AddAppointment(outputMapped, 1);
+            //    if (i == 0 || i == 1000 || i == 2000 || i == 3000 || i == 4000 || i == 4999)
+            //    {
+            //        _logger.Info($"Added with true {i}");
+            //    }
+            //}
+
             return appList;
         }
 

@@ -79,16 +79,16 @@ namespace WebApiNET.ServiceReference {
     public interface IOutlookService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Connect")]
-        void Connect(int id);
+        void Connect(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Connect")]
-        System.Threading.Tasks.Task ConnectAsync(int id);
+        System.Threading.Tasks.Task ConnectAsync(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Disconnect")]
-        void Disconnect(int id);
+        void Disconnect(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Disconnect")]
-        System.Threading.Tasks.Task DisconnectAsync(int id);
+        System.Threading.Tasks.Task DisconnectAsync(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOutlookService/Callback")]
         void Callback();
@@ -171,19 +171,19 @@ namespace WebApiNET.ServiceReference {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void Connect(int id) {
+        public void Connect(string id) {
             base.Channel.Connect(id);
         }
         
-        public System.Threading.Tasks.Task ConnectAsync(int id) {
+        public System.Threading.Tasks.Task ConnectAsync(string id) {
             return base.Channel.ConnectAsync(id);
         }
         
-        public void Disconnect(int id) {
+        public void Disconnect(string id) {
             base.Channel.Disconnect(id);
         }
         
-        public System.Threading.Tasks.Task DisconnectAsync(int id) {
+        public System.Threading.Tasks.Task DisconnectAsync(string id) {
             return base.Channel.DisconnectAsync(id);
         }
         

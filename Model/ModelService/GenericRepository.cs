@@ -6,6 +6,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Model.Entities;
 
 namespace Model.ModelService
 {
@@ -18,6 +20,7 @@ namespace Model.ModelService
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
+            //_context.Configuration.AutoDetectChangesEnabled = true;
         }
 
         public DbContextTransaction BeginTransaction()
@@ -50,6 +53,7 @@ namespace Model.ModelService
 
         public void Create(TEntity item)
         {
+            //_context.Configuration.AutoDetectChangesEnabled = true;
             _dbSet.Add(item);
         }
 

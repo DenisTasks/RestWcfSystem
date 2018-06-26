@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.ServiceModel;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
@@ -19,7 +20,7 @@ namespace WebApiNET.Controllers
     public class AppointmentController : ApiController
     {
         private readonly OutlookServiceClient _client;
-
+        private string ip;
         public AppointmentController()
         {
             var callback = new OutlookServiceCallback();
@@ -28,7 +29,8 @@ namespace WebApiNET.Controllers
             _client = new OutlookServiceClient(instanceContext);
             try
             {
-                _client.Connect(DateTime.Now.Minute);
+                _client.Connect(HttpContext.Current.Request.UserHostAddress);
+                ip = HttpContext.Current.Request.UserHostAddress;
             }
             catch (Exception)
             {
@@ -45,7 +47,9 @@ namespace WebApiNET.Controllers
         [EnableQuery]
         public IQueryable<AppointmentDTO> Get()
         {
+            Trace.WriteLine("ip is " + ip);
             var collection = _client.GetAppointments();
+
             return collection.AsQueryable();
         }
 
@@ -64,7 +68,7 @@ namespace WebApiNET.Controllers
             return NotFound();
         }
 
-        public IHttpActionResult Post([ModelBinder]AppointmentDTO app)
+        public IHttpActionResult Post([FromBody]AppointmentDTO app)
         {
             Trace.WriteLine("AppointmentController. Method POST started with subject: " + app.Subject);
             Trace.WriteLine("AppointmentController. Method POST started with locationId: " + app.LocationId);
@@ -76,7 +80,7 @@ namespace WebApiNET.Controllers
             {
                 BeginningDate = DateTime.Now,
                 EndingDate = DateTime.Now.AddHours(1),
-                LocationId = app.LocationId,
+                LocationId = 1,
                 Subject = app.Subject
             };
             var appointment = _client.AddAppointment(outputMapped, 1);

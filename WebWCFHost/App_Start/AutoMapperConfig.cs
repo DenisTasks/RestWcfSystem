@@ -13,6 +13,7 @@ namespace WebWCFHost.App_Start
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Appointment, AppointmentDTO>();
+                //cfg.CreateMap<Appointment, AppointmentDTO>().ForMember(x => x.Users, opt => opt.Ignore());
                 cfg.CreateMap<AppointmentDTO, Appointment>();
 
                 cfg.CreateMap<Location, LocationDTO>();

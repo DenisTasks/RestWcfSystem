@@ -11,10 +11,10 @@ namespace OutlookService.Interfaces
     public interface IOutlookService
     {
         [OperationContract(IsOneWay = true)]
-        void Connect(int id);
+        void Connect(string id);
 
         [OperationContract(IsOneWay = true)]
-        void Disconnect(int id);
+        void Disconnect(string id);
 
         [OperationContract(IsOneWay = true)]
         void Callback();

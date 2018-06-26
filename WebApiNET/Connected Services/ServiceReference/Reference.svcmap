@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="69f1d0a9-5e13-41f1-819d-78cb701ebccd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c1cfb71e-848a-45b9-b6f2-549182a60f26" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,12 +22,12 @@
     <MetadataSource Address="http://localhost:65481/HostService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="HostService.xsd" MetadataType="Schema" ID="5f558a8b-2650-4572-aa16-1a0dfaa449ed" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd2" />
-    <MetadataFile FileName="HostService.disco" MetadataType="Disco" ID="b5f38f56-c19d-4479-97dd-15a4ded09607" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?disco" />
-    <MetadataFile FileName="OutlookService.wsdl" MetadataType="Wsdl" ID="82963ad0-fdd5-4216-b9c6-214bd72861f2" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?wsdl" />
-    <MetadataFile FileName="HostService1.xsd" MetadataType="Schema" ID="f6fd48ca-6ab7-4c36-a578-3866d966d4be" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd0" />
-    <MetadataFile FileName="HostService2.xsd" MetadataType="Schema" ID="7f56db44-4c53-46e2-9617-14b19620b759" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd1" />
-    <MetadataFile FileName="HostService3.xsd" MetadataType="Schema" ID="a1516ea9-db8b-4848-8bbe-185e9213f620" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd3" />
+    <MetadataFile FileName="HostService.xsd" MetadataType="Schema" ID="da1460d3-7508-418c-a17c-ad0379a4d96f" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd2" />
+    <MetadataFile FileName="HostService.disco" MetadataType="Disco" ID="7e03f64a-9727-40c3-a7cb-e735f2d12322" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?disco" />
+    <MetadataFile FileName="OutlookService.wsdl" MetadataType="Wsdl" ID="951fdf6b-ab64-448f-ad5b-faec208fbe2c" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?wsdl" />
+    <MetadataFile FileName="HostService1.xsd" MetadataType="Schema" ID="1d3baf80-3917-4d5a-a4a5-1685f5a7cf40" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd0" />
+    <MetadataFile FileName="HostService2.xsd" MetadataType="Schema" ID="59ccb16e-f5c9-4f78-9170-5d9510242e75" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd1" />
+    <MetadataFile FileName="HostService3.xsd" MetadataType="Schema" ID="2dac60bc-041b-4ea4-8273-db19c728980a" SourceId="1" SourceUrl="http://localhost:65481/HostService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
